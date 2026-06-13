@@ -1,24 +1,431 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TALIDEM</title>
-  <link href="/output.css" rel="stylesheet">
-</head>
-<body class="bg-black text-white min-h-screen flex items-center justify-center">
-  
-  <div class="text-center px-4">
-    <h1 class="text-4xl md:text-6xl font-bold mb-4">
-      CHANGE THIS HEADING
-    </h1>
-    <p class="text-lg md:text-xl text-gray-300 mb-8">
-      Change this subtitle to whatever your site is about
-    </p>
-    <button class="border border-white px-8 py-3 hover:bg-white hover:text-black transition">
-      CHANGE THIS BUTTON
-    </button>
-  </div>
+<title>TALIDEM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  background: #050505;
+  color: #e6c266;
+  font-family: 'Segoe UI', Arial;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
 
+body.logged-in {
+  background: #050505 url('https://i.postimg.cc/Hrf7q6jk/unnamed.jpg') no-repeat center fixed;
+  background-size: 350px 350px;
+}
+
+.box {
+  border: 2px solid #d4af37;
+  padding: 40px 30px;
+  border-radius: 25px;
+  max-width: 420px;
+  margin: 50px auto;
+  background: rgba(15,15,15,0.95);
+  box-shadow: 0 20px 60px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  transform: perspective(1000px) rotateX(2deg);
+}
+
+.logo {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 4px solid #d4af37;
+  margin-bottom: 20px;
+  box-shadow: 0 15px 40px rgba(212,175,55,0.6);
+  transform: perspective(500px) rotateY(-5deg);
+}
+
+h1 {
+  font-size: 38px;
+  color: #e6c266;
+  text-shadow: 0 5px 20px rgba(230,194,102,0.7);
+  margin: 10px 0;
+  transform: perspective(500px) rotateX(10deg);
+}
+
+input {
+  width: 90%;
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: 2px solid #333;
+  background: #1a1a1a;
+  color: #e6e6e6;
+  font-size: 16px;
+  box-shadow: inset 0 3px 10px rgba(0,0,0,0.5);
+}
+
+button {
+  width: 90%;
+  padding: 16px;
+  margin: 15px 0;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(145deg, #d4af37, #b8941f);
+  color: #000;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(212,175,55,0.5), 0 2px 5px rgba(0,0,0,0.3);
+  transform: perspective(500px) rotateX(-5deg);
+  transition: all 0.2s;
+}
+
+button:active {
+  transform: perspective(500px) rotateX(5deg) scale(0.98);
+}
+
+.header {
+  background: #080808;
+  padding: 18px;
+  border-bottom: 3px solid #d4af37;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.sidebar {
+  position: fixed;
+  left: -260px;
+  top: 0;
+  width: 260px;
+  height: 100%;
+  background: #080808;
+  border-right: 3px solid #d4af37;
+  padding-top: 40px;
+  transition: 0.3s;
+  z-index: 200;
+  box-shadow: 5px 0 30px rgba(0,0,0,0.7);
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar div {
+  padding: 18px 25px;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.sidebar div:active {
+  background: #1a1a1a;
+  padding-left: 35px;
+  box-shadow: inset 5px 0 0 #d4af37;
+}
+
+.content {
+  padding: 25px;
+}
+
+.banner {
+  background: linear-gradient(145deg, #d4af37, #b8941f);
+  color: #000;
+  padding: 18px;
+  border-radius: 15px;
+  margin: 25px 0;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 10px 30px rgba(212,175,55,0.5);
+  transform: perspective(500px) rotateX(-3deg);
+}
+
+.card {
+  background: rgba(20,20,20,0.9);
+  border: 2px solid #d4af37;
+  padding: 30px 25px;
+  border-radius: 20px;
+  margin: 20px 0;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.2);
+  transform: perspective(1000px) rotateX(2deg);
+}
+
+.game {
+  border: 3px solid #d4af37;
+  padding: 25px 20px;
+  border-radius: 18px;
+  margin: 18px 0;
+  font-size: 18px;
+  background: rgba(25,25,25,0.9);
+  box-shadow: 0 12px 35px rgba(212,175,55,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  transform: perspective(500px) rotateX(-2deg);
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.game:active {
+  transform: perspective(500px) rotateX(3deg) translateY(-3px);
+  box-shadow: 0 18px 45px rgba(212,175,55,0.5);
+}
+
+.rules-box {
+  background: rgba(212,175,55,0.12);
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 20px;
+  border-left: 4px solid #d4af37;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.error-msg {
+  color: #ff4444;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
+}
+
+.alert-box {
+  background: rgba(255,68,68,0.15);
+  border: 2px solid #ff4444;
+  color: #ff6666;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 20px 0;
+  font-weight: bold;
+  display: none;
+}
+
+.switch-link {
+  color: #d4af37;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 14px;
+  margin-top: 10px;
+}
+</style>
+
+<script type="importmap">
+{"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js","firebase/auth":"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"}}
+</script>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="box">
+<img src="https://i.postimg.cc/Hrf7q6jk/unnamed.jpg" class="logo">
+<h1>TALIDEM</h1>
+<p style="font-size:12px; color:#999">Tournament Arena League & Interactive Digital Entertainment Management</p>
+
+<div id="loginForm">
+<input id="loginEmail" type="email" placeholder="Enter your email">
+<input id="loginPassword" type="password" placeholder="Enter password">
+<button onclick="login()">LOGIN</button>
+<p id="loginError" class="error-msg"></p>
+<p class="switch-link" onclick="showRegister()">No account? Register here</p>
+</div>
+
+<div id="registerForm" style="display:none">
+<input id="regEmail" type="email" placeholder="Enter your email">
+<input id="regPassword" type="password" placeholder="Password - min 6 chars">
+<button onclick="register()">CREATE ACCOUNT</button>
+<p id="regError" class="error-msg"></p>
+<p class="switch-link" onclick="showLogin()">Have account? Login here</p>
+</div>
+</div>
+
+<!-- DASHBOARD PAGE -->
+<div id="dashPage" style="display:none">
+<div class="header">
+<span onclick="toggleMenu()" style="font-size:32px; cursor:pointer; float:left; color:#d4af37">☰</span>
+<span style="font-size:22px; font-weight:bold; color:#e6c266; text-shadow:0 3px 10px rgba(230,194,102,0.5)">TALIDEM</span>
+<span></span>
+</div>
+
+<div class="sidebar" id="sidebar">
+<div onclick="showPage('home')">🏠 Home</div>
+<div onclick="showPage('menu')">🎮 Menu</div>
+<div onclick="showPage('settings')">⚙️ Settings</div>
+<div onclick="alert('Coming Soon')">🔑 Change Password</div>
+<div onclick="alert('Coming Soon')">💳 Payments</div>
+<div onclick="showPage('customer')">📞 Customer Care</div>
+<div onclick="showPage('status')">📊 Status</div>
+<div onclick="showPage('code')">🎫 My Code</div>
+<div onclick="logout()">🚪 Logout</div>
+</div>
+
+<div class="content" id="mainContent">
+
+<div id="home" class="page">
+<h1>🏆 WELCOME TO TALIDEM</h1>
+<p style="color:#999">Logged in as: <span id="userEmail">admin@talidem.com</span></p>
+
+<div class="banner">🚫 TOURNAMENT REGISTRATION CLOSED<br><small>Registration ended 12th June 2026</small></div>
+
+<div class="card">
+<h2 style="text-shadow:0 4px 15px rgba(230,194,102,0.6)">WELCOME TO TALIDEM GAMING HUB</h2>
+<p style="color:#e6c266; font-weight:bold; font-size:18px; text-shadow:0 3px 10px rgba(230,194,102,0.5)">— where gamers unite, compete, and dominate.</p>
+<p style="line-height:1.8; color:#ccc">Whether you're into e-football, call of duty, free fire, any form of mobile gaming, TALIDEM is the place to connect with fellow gamers, form squads, share highlights, discuss strategies, and stay updated on the latest gaming trends.</p>
+<p style="color:#e6c266; font-weight:bold; margin-top:25px">What you'll find here:</p>
+<p style="line-height:2; color:#ccc">• Gaming discussions and tips<br>• Squad and teammate recruitment<br>• Game updates and news<br>• Clips, screenshots, and achievements<br>• A friendly and active gaming community</p>
+<div class="rules-box"><b>Respect all members, play fair, represent TALIDEM with pride.</b></div>
+</div>
+</div>
+
+<div id="menu" class="page" style="display:none">
+<h2 style="text-shadow:0 4px 15px rgba(230,194,102,0.6)">🎮 SELECT YOUR GAME</h2>
+<div class="game" onclick="showCodeAlert()">⚽<br><b style="color:#e6c266; font-size:20px">eFootball 2026</b><br><small style="color:#999">Tournament Closed</small></div>
+<div class="game" onclick="showCodeAlert()">🏆<br><b style="color:#e6c266; font-size:20px">Dream League Soccer DLS 26</b><br><small style="color:#999">Tournament Closed</small></div>
+<div class="game" onclick="showCodeAlert()">🔫<br><b style="color:#e6c266; font-size:20px">Call of Duty Mobile COD</b><br><small style="color:#999">Tournament Closed</small></div>
+<div class="game" onclick="showCodeAlert()">🔥<br><b style="color:#e6c266; font-size:20px">Free Fire FF</b><br><small style="color:#999">Tournament Closed</small></div>
+<div class="game" onclick="showCodeAlert()">🎱<br><b style="color:#e6c266; font-size:20px">8 Ball Pool</b><br><small style="color:#999">Tournament Closed</small></div>
+<div class="game" onclick="showCodeAlert()">💬<br><b style="color:#e6c266; font-size:20px">iMessage Games</b><br><small style="color:#999">Tournament Closed</small></div>
+</div>
+
+<div id="settings" class="page" style="display:none">
+<h2 style="text-shadow:0 4px 15px rgba(230,194,102,0.6)">⚙️ SETTINGS</h2>
+<div class="card">
+<p style="font-size:18px">Email: <b style="color:#e6c266" id="settingsEmail">talidemportal@gmail.com</b></p>
+<p style="font-size:18px">Account Type: <b style="color:#e6c266">User</b></p>
+<p style="font-size:18px">Season: <b style="color:#e6c266">2026 Q2</b></p>
+</div>
+</div>
+
+<div id="customer" class="page" style="display:none">
+<h2 style="text-shadow:0 4px 15px rgba(230,194,102,0.6)">📞 CUSTOMER CARE</h2>
+<div class="card">
+<p style="font-size:18px; margin-bottom:20px">Need help? Chat with us directly</p>
+<p style="font-size:18px">📱 Support: <b style="color:#e6c266">+234 913 753 3521</b></p>
+<p style="font-size:18px">📧 Email: <b style="color:#e6c266">talidemportal@gmail.com</b></p>
+<p style="color:#999">⏰ 8am - 10pm daily</p>
+<!-- FIXED WHATSAPP BUTTON -->
+<a id="whatsappBtn" href="#" target="_blank" style="display:inline-block; width:90%; padding:16px; margin:15px 0; border-radius:12px; border:none; background:#25D366; color:white; font-weight:bold; font-size:18px; text-decoration:none; box-shadow:0 8px 25px rgba(37,211,102,0.5)">💬 Chat on WhatsApp</a>
+<p style="font-size:12px; color:#666; margin-top:15px">Tap to open WhatsApp with your email pre-filled</p>
+</div>
+</div>
+
+<div id="status" class="page" style="display:none">
+<h2 style="text-shadow:0 4px 15px rgba(230,194,102,0.6)">📊 TOURNAMENT STATUS</h2>
+<div class="card">
+<div style="font-size:22px; margin:15px 0">Tournament: <span style="color:#ff6666; font-weight:bold">NO TOURNAMENT IS GOING ON</span></div>
+<div style="font-size:18px; margin:15px 0">Games Registered: <span style="color:#e6c266; font-weight:bold">0</span></div>
+<div style="font-size:18px; margin:15px 0">Status: <span style="color:#999; font-weight:bold">NOT REGISTERED</span></div>
+</div>
+</div>
+
+<div id="code" class="page" style="display:none">
+<h2 style="text-shadow:0 4px 15px rgba(230,194,102,0.6)">🎫 MY TOURNAMENT CODE</h2>
+<div class="alert-box" id="codeAlert">⚠️ CODE NOT AVAILABLE YET<br><small>Codes will be generated when registration opens</small></div>
+<div class="card">
+<p style="color:#999">No tournament codes yet. Register for a game when tournament opens to get your code.</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'firebase/app';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+
+// YOUR FIREBASE KEYS - ALREADY ADDED ✅
+const firebaseConfig = {
+  apiKey: "AIzaSyB3HvdwCMgTNTvyl54O7SYHjTWv27Z7FCo",
+  authDomain: "talidem-portal.firebaseapp.com",
+  projectId: "talidem-portal",
+  storageBucket: "talidem-portal.firebasestorage.app",
+  messagingSenderId: "1079392403340",
+  appId: "1:1079392403340:web:2b45e52f0017c456c6a0a9"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.showRegister = () => {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('registerForm').style.display = 'block';
+  document.getElementById('loginError').style.display = 'none';
+}
+
+window.showLogin = () => {
+  document.getElementById('registerForm').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
+  document.getElementById('regError').style.display = 'none';
+}
+
+window.register = async () => {
+  const email = document.getElementById('regEmail').value;
+  const pass = document.getElementById('regPassword').value;
+  const error = document.getElementById('regError');
+  error.style.display = 'none';
+  
+  try {
+    await createUserWithEmailAndPassword(auth, email, pass);
+    alert('Account created! Login now');
+    showLogin();
+  } catch(err) {
+    error.textContent = err.message;
+    error.style.display = 'block';
+  }
+}
+
+window.login = async () => {
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPassword').value;
+  const error = document.getElementById('loginError');
+  error.style.display = 'none';
+  
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch(err) {
+    error.textContent = 'Wrong email or password';
+    error.style.display = 'block';
+  }
+}
+
+window.logout = async () => {
+  await signOut(auth);
+}
+
+window.toggleMenu = () => {
+  document.getElementById('sidebar').classList.toggle('active');
+}
+
+window.showPage = (id) => {
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+  toggleMenu();
+  
+  // Update WhatsApp link when Customer Care page opens
+  if(id === 'customer') {
+    updateWhatsAppLink();
+  }
+}
+
+window.showCodeAlert = () => {
+  alert('⚠️ CODE NOT AVAILABLE YET\nCodes will be generated when tournament registration opens.');
+}
+
+// FIXED WHATSAPP FUNCTION - USES DIRECT LINK
+function updateWhatsAppLink() {
+  const email = document.getElementById('userEmail').innerText;
+  const phone = '2349137533521';
+  const message = `Hi TALIDEM Support%0A%0AMy Email: ${email}%0A%0AIssue: [Describe your problem]%0A%0AThanks`;
+  document.getElementById('whatsappBtn').href = `https://wa.me/${phone}?text=${message}`;
+}
+
+// AUTO CHECK LOGIN STATE
+onAuthStateChanged(auth, (user) => {
+  if(user) {
+    document.getElementById('userEmail').innerText = user.email;
+    document.getElementById('settingsEmail').innerText = user.email;
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('dashPage').style.display = 'block';
+    document.body.classList.add('logged-in');
+    showPage('home');
+  } else {
+    document.getElementById('loginPage').style.display = 'block';
+    document.getElementById('dashPage').style.display = 'none';
+    document.body.classList.remove('logged-in');
+  }
+});
+</script>
 </body>
-</html>
+  </html>
